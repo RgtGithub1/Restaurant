@@ -3,7 +3,7 @@ from django.db import models
 from django.core.validators import MinValueValidator, \
  MaxValueValidator
 # from manager.models import Coupon
-#gmhg,n.k,kn
+
 
 class Order(models.Model):
     order_number = models.CharField(max_length=50)
