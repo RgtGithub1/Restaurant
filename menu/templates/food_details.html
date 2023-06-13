@@ -17,18 +17,31 @@
             <!-- <p style="margin-left: 124px;">{{ food.description }}</p> -->
             <p style="margin-left: 124px;">₹{{ food.price }}</p>
 
-            <!-- <button style="background-color: green; width: 50px">Add</button> -->
-            <div>
+            <div id="buttonGroup{{ forloop.counter }}">
+                <button class="add-btn" onclick="replaceButtonGroup({{ forloop.counter }})"
+                    style="background-color: green; width: 50px">Add</button>
+            </div>
+            <div id="plusMinusGroup{{ forloop.counter }}" style="display: none;">
                 <button style="background-color: red; color: #fff;" class="minus-btn" type="button">-</button>
                 <input style="width: 30px;" type="text" class="quantity-input" value="1">
-                <button style=" background-color: green; color: #fff;" class="plus-btn" type="button">+</button>
-                <button class="btn btn-primary" style="margin-left: 10px; width: 123px;">Add To Cart</button>
+                <button style="background-color: green; color: #fff;" class="plus-btn" type="button">+</button>
             </div>
         </div>
         {% endfor %}
     </div>
 
     <script>
+        function replaceButtonGroup(counter) {
+            const buttonGroup = document.getElementById(`buttonGroup${counter}`);
+            const plusMinusGroup = document.getElementById(`plusMinusGroup${counter}`);
+
+            buttonGroup.style.display = 'none';
+            plusMinusGroup.style.display = 'block';
+
+            // const quantityInput = plusMinusGroup.querySelector('.quantity-input');
+            // quantityInput.value = '1';
+        }
+
         // Retrieve all quantity input elements
         const quantityInputs = document.querySelectorAll('.quantity-input');
 
@@ -48,14 +61,21 @@
 
             minusBtn.addEventListener('click', function () {
                 const currentValue = parseInt(quantityInput.value);
-                if (currentValue > 1) {
-                    quantityInput.value = currentValue - 1;
-                }
+                if (currentValue === 1) {
+                const parentElement = minusBtn.parentElement.parentElement;
+                const buttonGroup = parentElement.querySelector(`#buttonGroup${i + 1}`);
+                const plusMinusGroup = parentElement.querySelector(`#plusMinusGroup${i + 1}`);
+
+                quantityInput.value = 1; // Reset the quantity input value
+                buttonGroup.style.display = 'block';
+                plusMinusGroup.style.display = 'none';
+            } else {
+                quantityInput.value = currentValue - 1;
+            }
             });
         }
     </script>
 
+
 </div>
 {% endblock %}
-
-<p>hi</p>
