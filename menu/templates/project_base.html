@@ -17,13 +17,15 @@
  <div class="cart">
  {% with total_items=cart|length %}
  {% if total_items > 0 %}
+ <!-- <a href="cart.html"><img src="C:/Users/VinodKumar/Desktop/table tap/TableTap/menu/static/cart.png"></a> -->
  Your cart:
 <!-- <a href="{% url "cart:cart_detail" %}">
 {{ total_items }} item{{ total_items|pluralize }},
 ${{ cart.get_total_price }}
 </a> -->
  {% elif not order %}
- Your cart is empty.
+ <a href="cart.html"><img class="cart_imge" src="static/cart.png"  width=50px height=50px></a>
+ <!-- Your cart is empty. -->
  {% endif %}
  {% endwith %}
  </div>

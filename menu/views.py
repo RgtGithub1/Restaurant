@@ -6,6 +6,7 @@ from .models import Menu, FoodItem
 def menu_list(request):
     # category = None
     categories = Menu.objects.all()
+    print("aaaaaaaaaqqqqqq:",categories)
     # products = FoodItem.objects.filter(available=True)
 
     # if category_slug:
