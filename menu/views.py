@@ -6,9 +6,30 @@ from .models import Menu, FoodItem, cart
 
 def menu_list(request):
     categories = Menu.objects.all()
+<<<<<<< HEAD
     return render(request, 
                   'main_menu.html', 
                   {'categories': categories})
+=======
+    print("aaaaaaaaaqqqqqq:",categories)
+    # products = FoodItem.objects.filter(available=True)
+
+    # if category_slug:
+    #     category = get_object_or_404(Menu,
+    #                                  slug=category_slug)
+    #     products = products.filter(category=category)
+
+    # return render(request,
+    #               'main_menu.html',
+    #               {'category': category,
+    #                'categories': categories,
+    #                'products': products})
+
+    return render(request,
+                  'main_menu.html',
+                  {
+                      'categories': categories})
+>>>>>>> 98ecd8ded886c990bc06edea6df6f1794e46e0ff
 
 
 def food_items_details(request, id, menu_slug):
