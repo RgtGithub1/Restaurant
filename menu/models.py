@@ -5,14 +5,16 @@ from django.urls import reverse
 class Menu(models.Model):
     name = models.CharField(max_length=200)
     slug = models.SlugField(max_length=200, unique=True)
-    image = models.ImageField(upload_to='products/%Y/%m/%d',
-                              blank=True)
+    image = models.ImageField(upload_to='products/%Y/%m/%d', blank=True)
 
+    '''
+    class meta method dispaly image on menu page order by name.
+    '''
     class Meta:
         ordering = ['name']
-        indexes = [
-            models.Index(fields=['name'])
-        ]
+        # indexes = [
+        #     models.Index(fields=['name'])
+        # ]
 
     def __str__(self):
         return self.name
@@ -37,13 +39,18 @@ class FoodItem(models.Model):
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
 
+    # class Meta:
+    #     ordering = ['name']
+    #     indexes = [
+    #         models.Index(fields=['id', 'slug']),
+    #         models.Index(fields=['name']),
+    #         models.Index(fields=['-created']),
+    #     ]
     class Meta:
         ordering = ['name']
-        indexes = [
-            models.Index(fields=['id', 'slug']),
-            models.Index(fields=['name']),
-            models.Index(fields=['-created']),
-        ]
+        # indexes = [
+        #     models.Index(fields=['name']),
+        # ]
 
     def __str__(self):
         return self.name
@@ -51,3 +58,11 @@ class FoodItem(models.Model):
     # def get_absolute_url(self):
     #     return reverse('menu:food_list_by_category',
     #                     args=[self.slug])
+
+class cart(models.Model):
+    food_name = models.ForeignKey(FoodItem,
+                                 related_name='food_cart',
+                                 on_delete=models.CASCADE)
+    quantity = models.IntegerField()
+
+
