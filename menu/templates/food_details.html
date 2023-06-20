@@ -1,7 +1,8 @@
 {% extends "project_base.html" %}
 {% load static %}
-
 {% block content %}
+
+
 <div id="main">
     <h1>{{ category }} <a href="{% url 'menu:menu_list' %}"
             style="text-align: right; float: right; color: black; text-decoration: none;">Menu</a></h1>
@@ -16,6 +17,14 @@
                 style="color: black; margin-left: 124px; text-decoration: none;">{{food.name }}</a>
             <!-- <p style="margin-left: 124px;">{{ food.description }}</p> -->
             <p style="margin-left: 124px;">₹{{ food.price }}</p>
+<!-- #===========Add wishlist====================================== -->
+            <form action="/" method="POST">
+                {% csrf_token %}
+                <input hidden type="text" name="product" value="{{food.id}}">
+                <input type="submit" class="float-right btn 
+                btn-light border btn-sm" value="Add to Cart">
+            </form>
+<!-- #============================================================= -->
 
             <div id="buttonGroup{{ forloop.counter }}">
                 <button class="add-btn" onclick="replaceButtonGroup({{ forloop.counter }})"

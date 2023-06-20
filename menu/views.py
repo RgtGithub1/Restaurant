@@ -1,35 +1,55 @@
 from django.shortcuts import render, get_object_or_404
 from .models import Menu, FoodItem, cart
+from django.views import View
 # from .forms import QuantityForm
 
 
+# class index(View):
+#     def post(self, request):
+#         product = request.POST.get('product')
+#         print(product)
+
+
+# def menu_list(request):
+#     categories = Menu.objects.all()
+#     product = request.POST.get('product')
+#     print(product)
+
+#     return render(request, 
+#                   'main_menu.html', 
+#                   {'categories': categories})
 
 def menu_list(request):
     categories = Menu.objects.all()
-<<<<<<< HEAD
+    #=================================Experiment=================
+    product = request.POST.get('product')
+    print("Product id", product)
+    cart = request.session.get('cart')
+    if cart:
+        quantity = cart.get(product)
+        if quantity:
+            cart[product] = quantity+1
+        else:
+            cart[product] = 1
+
+    else:
+        cart = {}
+        cart[product] = 1
+
+    request.session['cart'] = cart
+    print("cart:", request.session['cart'])
+    
+    #============================================================
     return render(request, 
                   'main_menu.html', 
                   {'categories': categories})
-=======
-    print("aaaaaaaaaqqqqqq:",categories)
-    # products = FoodItem.objects.filter(available=True)
 
-    # if category_slug:
-    #     category = get_object_or_404(Menu,
-    #                                  slug=category_slug)
-    #     products = products.filter(category=category)
+def get(self, request):
+    products = None
+    request.session.get('cart').clear()
+    categories = Category.get_all_category()
 
-    # return render(request,
-    #               'main_menu.html',
-    #               {'category': category,
-    #                'categories': categories,
-    #                'products': products})
 
-    return render(request,
-                  'main_menu.html',
-                  {
-                      'categories': categories})
->>>>>>> 98ecd8ded886c990bc06edea6df6f1794e46e0ff
 
 
 def food_items_details(request, id, menu_slug):
