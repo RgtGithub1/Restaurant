@@ -1,3 +1,5 @@
+{% load static %}
+{% load cart %}
 <!DOCTYPE html>
 <html lang="en">
 
@@ -84,24 +86,22 @@
 </head>
 
 <body>
-  <h1>My Wishlist</h1>
-  <div class="wishlist-container">
-    <div class="wishlist-item">
-      <img src="item1.jpg" alt="Item 1">
-      <div class="item-details">
-        <h2>Item 1</h2>
-        <p>Price: $19.99</p>
-        <p>Description: Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+    {% for product in products %}
+    <div class="add_wishlist">
+      <div class="wishlist-container">
+        <div class="wishlist-item">
+          <!-- <img src="data:product.image,{{ product.name }}" alt="Item 1"> -->
+          <img src="{% if product.image %}{{ product.image.url }}{% else %}{% static " img/no_image.png" %}{% endif %}">
+          
+          <div class="item-details">
+            <h2>{{product.name}}</h2>
+            <p>{{product.price}}</p>
+            <p>{{product.description}}</p>
+          </div>
+          <button>Add to Cart</button>
+        </div>
+        
       </div>
-      <button>Add to Cart</button>
     </div>
-    <div class="wishlist-item">
-      <img src="item2.jpg" alt="Item 2">
-      <div class="item-details">
-        <h2>Item 2</h2>
-        <p>Price: $29.99</p>
-        <p>Description: Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-      </div>
-      <button>Add to Cart</button>
-    </div>
-    <div class="
+    {% endfor %}
+</body>

@@ -66,3 +66,8 @@ class cart(models.Model):
     quantity = models.IntegerField()
 
 
+# class wishlist(models.Model):
+
+    # @staticmethod
+    # def get_all_products():
+    #     return food.objects.filter()

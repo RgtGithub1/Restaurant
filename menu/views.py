@@ -22,19 +22,18 @@ from django.views import View
 def menu_list(request):
     categories = Menu.objects.all()
     #=================================Experiment=================
-    product = request.POST.get('product')
-    print("Product id", product)
+    food = request.POST.get('food')
+    print("Product id", food)
     cart = request.session.get('cart')
     if cart:
-        quantity = cart.get(product)
+        quantity = cart.get(food)
         if quantity:
-            cart[product] = quantity+1
+            cart[food] = quantity+1
         else:
-            cart[product] = 1
-
+            cart[food] = 1
     else:
         cart = {}
-        cart[product] = 1
+        cart[food] = 1
 
     request.session['cart'] = cart
     print("cart:", request.session['cart'])
@@ -70,11 +69,28 @@ def cart(request):
     context = {'cart_items': cart_items}
     return render(request, 'cart.html', context)
 
+#====================Modifying=======================
 def wishlist(request):
     # Retrieve the cart items from session or database
-    cart_items = request.session.get('cart', {})
-    context = {'cart_items': cart_items}
-    return render(request, 'wishlist.html', context)
+    # cart_items = request.session.get('cart', {})
+    # context = {'cart_items': cart_items}
+    ids = list(request.session.get('cart').keys())
+    ids_list = []
+    for i in ids:
+        if i != "null":
+            ids_list.append(i)
+            print("qqqqqqqqqqqqqqqqqqqqq:",ids_list)
+            print("QQQQQQQQQQQQQQQQQ:",ids_list)
+            # print("cccccccccccccccccccccccccccccccccccccccc",list(request.session.get('cart').keys()))
+            wish_list_food_details_list = FoodItem.objects.filter(id__in=ids_list)
+            print(type(id), type(ids))
+            print("wish_list_food_details_list", wish_list_food_details_list)
+            # products = Product.get_products_by_id(ids)
+            print("hiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii")
+            return render(request, 'wishlist.html', {'products': wish_list_food_details_list})
+        else:
+            print("Error")
+#=========================================================
 
 
 
