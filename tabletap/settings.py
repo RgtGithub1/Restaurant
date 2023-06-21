@@ -79,11 +79,8 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'restaurant',
         'USER': 'restaurant',
-<<<<<<< HEAD
-        'PASSWORD': 'restaurant'
-=======
         'PASSWORD': 'restaurant',
->>>>>>> 3caf7150e6a6c7aed0c1e4491195e8dc11781e45
+
     }
 }
 

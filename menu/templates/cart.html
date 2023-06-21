@@ -104,6 +104,13 @@
         <td>
           ₹{{food|quantity_price:request.session.cart}}
         </td>
+        <td>
+          <form action="/cart/" method="POST">
+            {% csrf_token %}
+            <input hidden type="text" name="product" value='{{food.id}}'>
+            <input type="submit" value="Remove">
+        </form>
+        </td>
       </tr>
       {% endfor %}
       
@@ -113,15 +120,20 @@
 
     <tfoot>
       <tr>
-        <td colspan="3"><strong>Total:</strong></td>
+        <td colspan="2"><strong>Total:</strong></td>
+        <td>{{food_details_list|total_quantity:request.session.cart}}</td>
         <td>₹{{food_details_list|total_price:request.session.cart}}</td>
-        <td></td>
+        
       </tr>
     </tfoot>
   </table>
   
   <a href="/" class="btn">Continue Menu</a>
-  <a href="#" class="btn">Checkout</a>
+  <form action="/cart/" method="POST">
+    {% csrf_token %}
+    <input hidden type="text" name="product" value='{{food.id}}'>
+    <input type="submit" value="Checkout">
+</form>
   
 </body>
 </html>

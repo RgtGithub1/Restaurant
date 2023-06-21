@@ -1,14 +1,9 @@
 {% extends "project_base.html" %}
 {% load static %}
-<<<<<<< HEAD
 {% load cart %}
 
-=======
->>>>>>> 3caf7150e6a6c7aed0c1e4491195e8dc11781e45
 {% block content %}
-
-
-<div id="main">
+<div id="main" class="col-lg-9 mx-auto">
     <h1>{{ category }} <a href="{% url 'menu:menu_list' %}"
             style="text-align: right; float: right; color: black; text-decoration: none;">Menu</a></h1>
     <div class="row">
@@ -22,39 +17,39 @@
                 style="color: black; margin-left: 124px; text-decoration: none;">{{food.name }} {{food.id}}</a>
             <!-- <p style="margin-left: 124px;">{{ food.description }}</p> -->
             <p style="margin-left: 124px;">₹{{ food.price }}</p>
-<!-- #===========Add wishlist====================================== -->
-            <form action="/" method="POST">
-                {% csrf_token %}
-                <input hidden type="text" name="product" value="{{food.id}}">
-                <input type="submit" class="float-right btn 
-                btn-light border btn-sm" value="Add to Cart">
-            </form>
-<!-- #============================================================= -->
 
-            {% if food|is_in_cart:request.session.cart %}
-            <div >
+            <div class="text-center col">
+
+                {% if food|is_in_cart:request.session.cart %}
+                <div class="row text-center col">
+                    <form action="/{{category.id}}/{{category.slug}}/" method="POST">
+                        {% csrf_token %}
+                        <input hidden type="text" name="product" value='{{food.id}}'>
+                        <input hidden type="number" name="remove" value='-1'>
+                        <input type="submit" value="-">
+                    </form>
+
+
+                    <div class="text-center col">{{food|cart_quantity:request.session.cart}}</div>
+
+                    <form action="/{{category.id}}/{{category.slug}}/" method="POST">
+                        {% csrf_token %}
+                        <input hidden type="text" name="product" value='{{food.id}}'>
+                        <!-- <button style="background-color: green; color: #fff;" class="plus-btn" type="button">+</button> -->
+                        <input type="submit" value="+">
+                    </form>
+                    
+                </div>
+                {%else%}
                 <form action="/{{category.id}}/{{category.slug}}/" method="POST">
                     {% csrf_token %}
                     <input hidden type="text" name="product" value='{{food.id}}'>
-                    <input hidden type="number" name="remove" value='-1'>
-                    <input type="submit" value="-">
+                    <input type="submit" value="Add">
                 </form>
-                <input style="width: 30px;" type="text" class="quantity-input" value={{food|cart_quantity:request.session.cart}}>
-                <form action="/{{category.id}}/{{category.slug}}/" method="POST">
-                    {% csrf_token %}
-                    <input hidden type="text" name="product" value='{{food.id}}'>
-                    <!-- <button style="background-color: green; color: #fff;" class="plus-btn" type="button">+</button> -->
-                    <input type="submit" value="+">
-                </form>
-                
+                {%endif%}
+
             </div>
-            {%else%}
-            <form action="/{{category.id}}/{{category.slug}}/" method="POST">
-                {% csrf_token %}
-                <input hidden type="text" name="product" value='{{food.id}}'>
-                <input type="submit" value="Add">
-            </form>
-            {%endif%}
+
         </div>
         {% endfor %}
     </div>
