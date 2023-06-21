@@ -350,4 +350,14 @@ form div.field {
     width: 10px;
 }
 
+.quantity-container {
+    display: flex;
+    align-items: center;
+}
+
+.quantity-container form {
+    margin-right: 5px;
+}
+
+
   

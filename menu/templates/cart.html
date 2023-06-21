@@ -1,3 +1,7 @@
+{% load static %}
+
+{% load cart %}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -85,72 +89,39 @@
     </thead>
     
     <tbody>
+
+      {% for food in food_details_list %}
       <tr>
-        <td><img src="item1.jpg" alt="Item 1"></td>
-        <td>$10.00</td>
+        <td><img src="{% if food.image %}{{ food.image.url }}{% else %}{% static " img/no_image.png" %}{% endif %}"
+          width="50px" height="50px" border-radus="50%" style="border-radius: 15%">
+        <p>{{food.name}}</p></td>
         <td>
-          <div class="quantity-container">
-            <a href="#" class="quantity" onclick="decreaseQuantity(1)">-</a>
-            <span id="quantity1">2</span>
-            <a href="#" class="quantity" onclick="increaseQuantity(1)">+</a>
-          </div>
+          ₹{{food.price}}
         </td>
-        <td>$20.00</td>
-        <td><a href="#" class="btn">Remove</a></td>
-      </tr>
-      <tr>
-        <td><img src="item1.jpg" alt="Item 1"></td>
-        <td>$15.00</td>
         <td>
-          <div class="quantity-container">
-            <a href="#" class="quantity" onclick="decreaseQuantity(2)">-</a>
-            <span id="quantity2">1</span>
-            <a href="#" class="quantity" onclick="increaseQuantity(2)">+</a>
-          </div>
+          {{food|cart_quantity:request.session.cart}}
         </td>
-        <td>$15.00</td>
-        <td><a href="#" class="btn">Remove</a></td>
-      </tr>
-      <tr>
-        <td><img src="item1.jpg" alt="Item 1"></td>
-        <td>$20.00</td>
         <td>
-          <div class="quantity-container">
-            <a href="#" class="quantity" onclick="decreaseQuantity(3)">-</a>
-            <span id="quantity3">3</span>
-            <a href="#" class="quantity" onclick="increaseQuantity(3)">+</a>
-          </div>
+          ₹{{food|quantity_price:request.session.cart}}
         </td>
-        <td>$60.00</td>
-        <td><a href="#" class="btn">Remove</a></td>
       </tr>
-    </tbody>
+      {% endfor %}
+      
+  
+
+
+
     <tfoot>
       <tr>
         <td colspan="3"><strong>Total:</strong></td>
-        <td>$95.00</td>
+        <td>₹{{food_details_list|total_price:request.session.cart}}</td>
         <td></td>
       </tr>
     </tfoot>
   </table>
   
-  <a href="#" class="btn">Continue Menu</a>
+  <a href="/" class="btn">Continue Menu</a>
   <a href="#" class="btn">Checkout</a>
   
-  <script>
-    function increaseQuantity(itemId) {
-      var quantityElement = document.getElementById('quantity' + itemId);
-      var currentQuantity = parseInt(quantityElement.textContent);
-      quantityElement.textContent = currentQuantity + 1;
-    }
-    
-    function decreaseQuantity(itemId) {
-      var quantityElement = document.getElementById('quantity' + itemId);
-      var currentQuantity = parseInt(quantityElement.textContent);
-      if (currentQuantity > 1) {
-        quantityElement.textContent = currentQuantity - 1;
-      }
-    }
-  </script>
 </body>
 </html>

@@ -1,74 +1,91 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from .models import Menu, FoodItem, cart
-# from .forms import QuantityForm
-
 
 
 def menu_list(request):
     categories = Menu.objects.all()
-<<<<<<< HEAD
     return render(request, 
                   'main_menu.html', 
                   {'categories': categories})
-=======
-    print("aaaaaaaaaqqqqqq:",categories)
-    # products = FoodItem.objects.filter(available=True)
-
-    # if category_slug:
-    #     category = get_object_or_404(Menu,
-    #                                  slug=category_slug)
-    #     products = products.filter(category=category)
-
-    # return render(request,
-    #               'main_menu.html',
-    #               {'category': category,
-    #                'categories': categories,
-    #                'products': products})
-
-    return render(request,
-                  'main_menu.html',
-                  {
-                      'categories': categories})
->>>>>>> 98ecd8ded886c990bc06edea6df6f1794e46e0ff
-
 
 def food_items_details(request, id, menu_slug):
+    print('entering into food_items_details')
+    
+
     category = get_object_or_404(Menu, id=id)
+
+    if request.method == 'POST':
+        global cart
+        cart = request.session.get('cart')
+        if not cart:
+            request.session['cart'] = {}
+        product = request.POST.get('product')
+        remove = request.POST.get('remove')
+        quantity = request.POST.get('quantity')
+        # cart = request.session.get('cart')
+
+        if cart:
+            quantity = cart.get(product)
+            if quantity:
+                if remove:
+                    if quantity <=1:
+                        cart.pop(product)
+                    else:
+                        cart[product] = quantity-1
+                else:
+                    cart[product] = quantity+1
+            else:
+                cart[product] = 1
+        else:
+            print('entering into else part')
+            cart = {}
+            cart[product] = 1 
+
+
+        request.session['cart'] = cart
+        print('cart:', cart)
+
+
     print('category:', category)
+    # print('cart:', cart)
+
     food_details_list = FoodItem.objects.filter(category_id=str(id))
+
+
+
     return render(request,
                   'food_details.html',
                   {'food_details_list': food_details_list,
-                   'category': category})
+                   'category': category
+                   },
+                   )
 
+
+
+# def cart(request):
+#     # print('cart in cart:', request.cart)
+#     mail=request.session.get('cart')
+#     print('mail',mail)
+
+#     print('mail.keys:::',mail.values())
+
+#     keys = [int(key) for key in mail.keys()]
+#     food_details_list = FoodItem.objects.filter(id__in=keys)
+#     print(food_details_list)
+#     return render(request, 'cart.html',{'products' : food_details_list} )
 
 def cart(request):
-    # Retrieve the cart items from session or database
-    # cart_items = cart.objects.all()
-    # print("cart_items::::",cart_items)
-    cart_items = request.session.get('cart', {})
-    context = {'cart_items': cart_items}
-    return render(request, 'cart.html', context)
+    mail = request.session.get('cart')
+    keys = [int(key) for key in mail.keys()]
+    food_details_list = FoodItem.objects.filter(id__in=keys)
+
+    # Create a dictionary mapping FoodItem objects to their quantities
+    product_quantity_dict = {food: mail[str(food.id)] for food in food_details_list}
+
+    return render(request, 'cart.html', {'food_details_list': food_details_list, 'quantities': product_quantity_dict})
+
 
 def wishlist(request):
-    # Retrieve the cart items from session or database
-    cart_items = request.session.get('cart', {})
-    context = {'cart_items': cart_items}
-    return render(request, 'wishlist.html', context)
 
-
-
-
-def update_quantity(request):
-    if request.method == 'POST':
-        food_id = request.POST.get('food_id')
-        quantity = request.POST.get('quantity')
-
-        print(f"Food ID: {food_id}, Quantity: {quantity}")  # Print the quantity values
-
-        return render(request, 'food_details.html')
-
-        # Rest of your view logic
-
-    # Redirect or render a response as needed
+    return render(request, 'wishlist.html')
 

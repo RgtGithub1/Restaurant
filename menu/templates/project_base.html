@@ -11,17 +11,17 @@
  </head>
  <body style="background-color:orange;">
  <div id="header">
- <a href="/" class="logo" style="text-decoration: none; margin-left: 143px">Restaurant Name</a>
+ <a href="/" class="logo" style="text-decoration: none; margin-left: 143px">TableTap</a>
  <!-- <a href="cart/" style=" margin-right: 48px; color: black; text-decoration: none; float: right">cart</a>
  <a href="wishlist/" style=" margin-right: 60px; color: black; text-decoration: none; float: right">Wishlist</a> -->
- <a href="wishlist/" style=" margin-right: 48px; color: black; text-decoration: none; float: right"><img class="cart_imge" src="static/images/wishlist.jfif"  width=50px height=50px></a>
- <a href="cart/" style=" margin-right: 48px; color: black; text-decoration: none; float: right"><img class="cart_imge" src="static/images/cart.png"  width=50px height=50px></a>
+ <a href="/wishlist/" style=" margin-right: 48px; color: black; text-decoration: none; float: right"><img class="cart_imge" src="/static/images/wishlist.jfif"  width=50px height=50px></a>
+ <a href="/cart/" style=" margin-right: 48px; color: black; text-decoration: none; float: right"><img class="cart_imge" src="/static/images/cart.png"  width=50px height=50px></a>
  </div>
  <!-- <div id="subheader">
  <div class="cart">
  {% with total_items=cart|length %}
  {% if total_items > 0 %}
- <!-- <a href="cart.html"><img src="C:/Users/VinodKumar/Desktop/table tap/TableTap/menu/static/cart.png"></a> -->
+ <a href="cart.html"><img src="C:/Users/VinodKumar/Desktop/table tap/TableTap/menu/static/cart.png"></a> -->
  Your cart:
 <a href="{% url "cart:cart_detail" %}">
 {{ total_items }} item{{ total_items|pluralize }},
@@ -33,7 +33,7 @@ ${{ cart.get_total_price }}
  {% endif %}
  {% endwith %}
  </div>
- </div> -->
+ </div>
  <div id="content">
  {% block content %}
  {% endblock %}
