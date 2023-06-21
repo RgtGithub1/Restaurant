@@ -1,12 +1,65 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from .models import Menu, FoodItem, cart
+<<<<<<< HEAD
+=======
+from django.views import View
+# from .forms import QuantityForm
 
+>>>>>>> 3caf7150e6a6c7aed0c1e4491195e8dc11781e45
+
+# class index(View):
+#     def post(self, request):
+#         product = request.POST.get('product')
+#         print(product)
+
+
+# def menu_list(request):
+#     categories = Menu.objects.all()
+#     product = request.POST.get('product')
+#     print(product)
+
+#     return render(request, 
+#                   'main_menu.html', 
+#                   {'categories': categories})
 
 def menu_list(request):
     categories = Menu.objects.all()
+<<<<<<< HEAD
     return render(request, 
                   'main_menu.html', 
                   {'categories': categories})
+=======
+    #=================================Experiment=================
+    product = request.POST.get('product')
+    print("Product id", product)
+    cart = request.session.get('cart')
+    if cart:
+        quantity = cart.get(product)
+        if quantity:
+            cart[product] = quantity+1
+        else:
+            cart[product] = 1
+
+    else:
+        cart = {}
+        cart[product] = 1
+
+    request.session['cart'] = cart
+    print("cart:", request.session['cart'])
+    
+    #============================================================
+    return render(request, 
+                  'main_menu.html', 
+                  {'categories': categories})
+
+def get(self, request):
+    products = None
+    request.session.get('cart').clear()
+    categories = Category.get_all_category()
+
+
+
+>>>>>>> 3caf7150e6a6c7aed0c1e4491195e8dc11781e45
 
 def food_items_details(request, id, menu_slug):
     print('entering into food_items_details')
