@@ -28,6 +28,7 @@ def food_items_details(request, id, menu_slug):
         quantity = request.POST.get('quantity')
         food_wish_list = request.POST.get('food_wish_list')
         # print('food_wish_list is @@@@@', type(food_wish_list), food_wish_list)
+        'hello'
 
 
         if food_wish_list != 'this is wish':
