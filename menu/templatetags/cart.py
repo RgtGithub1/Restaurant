@@ -17,7 +17,7 @@ def cart_quantity(food  , cart):
     for id in keys:
         if int(id) == food.id:
             return cart.get(id)
-    return 0;
+    return 0
 
 @register.filter(name='quantity_price')
 def cart_quantity(food  , cart):
@@ -26,7 +26,7 @@ def cart_quantity(food  , cart):
         if int(id) == food.id:
             amount_quantity_price = cart.get(id) * food.price
             return amount_quantity_price
-    return 0;
+    return 0
 
 @register.filter(name='total_price')
 def cart_quantity(food_details_list  , cart):
@@ -51,3 +51,17 @@ def cart_quantity(food_details_list  , cart):
                 if int(id) == food.id:
                     total_quantity_price = total_quantity_price + cart.get(id)
         return total_quantity_price
+
+@register.filter(name='list_quantity_detail')
+def cart_quantity(list_quantity  , cart):
+    print('entering into list_quantity_detail',list_quantity)
+
+    for food in list_quantity:
+        keys = cart.keys()
+        total_quantity_price = 0
+        for food in list_quantity:
+            for id in keys:
+                if int(id) == food.id:
+                    total_quantity_price = total_quantity_price + cart.get(id)
+        return total_quantity_price
+    return 0

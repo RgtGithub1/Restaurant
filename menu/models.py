@@ -5,7 +5,7 @@ from django.urls import reverse
 class Menu(models.Model):
     name = models.CharField(max_length=200)
     slug = models.SlugField(max_length=200, unique=True)
-    image = models.ImageField(upload_to='products/%Y/%m/%d', blank=True)
+    image = models.ImageField(upload_to='food_images/%Y/%m/%d', blank=True)
 
     '''
     class meta method dispaly image on menu page order by name.
@@ -30,7 +30,7 @@ class FoodItem(models.Model):
                                  on_delete=models.CASCADE)
     name = models.CharField(max_length=200)
     slug = models.SlugField(max_length=200)
-    image = models.ImageField(upload_to='products/%Y/%m/%d',
+    image = models.ImageField(upload_to='food_images/%Y/%m/%d',
                               blank=True)
     description = models.TextField(blank=True)
     price = models.DecimalField(max_digits=10,
@@ -59,10 +59,10 @@ class FoodItem(models.Model):
     #     return reverse('menu:food_list_by_category',
     #                     args=[self.slug])
 
-class cart(models.Model):
-    food_name = models.ForeignKey(FoodItem,
-                                 related_name='food_cart',
-                                 on_delete=models.CASCADE)
-    quantity = models.IntegerField()
+# class cart(models.Model):
+#     food_name = models.ForeignKey(FoodItem,
+#                                  related_name='food_cart',
+#                                  on_delete=models.CASCADE)
+#     quantity = models.IntegerField()
 
 

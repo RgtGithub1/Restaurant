@@ -14,42 +14,45 @@
                     width="100%" height="240" border-radus="50%" style="border-radius: 15%">
             </a><br>
             <a href="{{ food.get_absolute_url }}"
-                style="color: black; margin-left: 124px; text-decoration: none;">{{food.name }} {{food.id}}</a>
+                style="color: black; margin-left: 124px; text-decoration: none;">{{food.name }}</a>
             <!-- <p style="margin-left: 124px;">{{ food.description }}</p> -->
             <p style="margin-left: 124px;">₹{{ food.price }}</p>
 
             <div class="text-center col">
-
                 {% if food|is_in_cart:request.session.cart %}
-                <div class="row text-center col">
-                    <form action="/{{category.id}}/{{category.slug}}/" method="POST">
+                <div>
+                    <form id='form3' action="/{{category.id}}/{{category.slug}}/" method="POST" style="display: inline;">
                         {% csrf_token %}
                         <input hidden type="text" name="product" value='{{food.id}}'>
                         <input hidden type="number" name="remove" value='-1'>
-                        <input type="submit" value="-">
+                        <button style="width: auto; background-color: red; color: white;">-</button>
                     </form>
-
-
-                    <div class="text-center col">{{food|cart_quantity:request.session.cart}}</div>
-
-                    <form action="/{{category.id}}/{{category.slug}}/" method="POST">
+    
+                    {{food|cart_quantity:request.session.cart}}
+    
+                    <form id='form4' action="/{{category.id}}/{{category.slug}}/" method="POST" style="display: inline;">
                         {% csrf_token %}
                         <input hidden type="text" name="product" value='{{food.id}}'>
-                        <!-- <button style="background-color: green; color: #fff;" class="plus-btn" type="button">+</button> -->
-                        <input type="submit" value="+">
+                        <button style="width: auto; background-color: #4CAF50; color: white;">+</button>
                     </form>
-                    
                 </div>
-                {%else%}
-                <form action="/{{category.id}}/{{category.slug}}/" method="POST">
-                    {% csrf_token %}
-                    <input hidden type="text" name="product" value='{{food.id}}'>
-                    <input type="submit" value="Add">
-                </form>
-                {%endif%}
+                {% else %}
+                <div>
+                    <form id='form1' action="/{{category.id}}/{{category.slug}}/" method="POST" style="margin-bottom: 20px; display: inline;">
+                        {% csrf_token %}
+                        <input hidden type="text" name="product" value='{{food.id}}'>
+                        <button style="width: auto; background-color: black;">&#x1F6D2;</button>
+                    </form>
 
+                    <form id='form2' action="/{{category.id}}/{{category.slug}}/" method="POST" style="display: inline;">
+                        {% csrf_token %}
+                        <input hidden type="text" name="product" value='{{food.id}}'>
+                        <input hidden type="text" name="food_wish_list" value='this is wish'>
+                        <button style="width: auto;">&#x1F496;</button>
+                    </form>
+                </div>
+                {% endif %}
             </div>
-
         </div>
         {% endfor %}
     </div>

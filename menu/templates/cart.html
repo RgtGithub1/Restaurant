@@ -7,13 +7,12 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Shopping Cart</title>
+  <title>TableTap Cart</title>
   <style>
     body {
       font-family: Arial, sans-serif;
       margin: 0;
       padding: 20px;
-      background-image: url('static/wishlist.jfif');
       background-color: #66a8ba;
       background-repeat: no-repeat;
       background-size: cover;
@@ -99,17 +98,28 @@
           ₹{{food.price}}
         </td>
         <td>
-          {{food|cart_quantity:request.session.cart}}
+
+          <form id='form1' action="/cart/" method="POST" style="display: inline;">
+            {% csrf_token %}
+            <input hidden type="text" name="product" value='{{food.id}}'>
+            <input hidden type="number" name="remove" value='-1'>
+            <!-- <input type="submit" value="-"> -->
+            <button style="width: auto; background-color: red; color: white;">-</button>
+        </form>
+
+
+        {{food|cart_quantity:request.session.cart}}
+
+        <form action="/cart/" method="POST" style="display: inline;">
+            {% csrf_token %}
+            <input hidden type="text" name="product" value='{{food.id}}'>
+            <!-- <input type="submit" value="+"> -->
+            <button style="width: auto; background-color: green; color: white;">+</button>
+        </form>
+
         </td>
         <td>
           ₹{{food|quantity_price:request.session.cart}}
-        </td>
-        <td>
-          <form action="/cart/" method="POST">
-            {% csrf_token %}
-            <input hidden type="text" name="product" value='{{food.id}}'>
-            <input type="submit" value="Remove">
-        </form>
         </td>
       </tr>
       {% endfor %}
@@ -129,10 +139,12 @@
   </table>
   
   <a href="/" class="btn">Continue Menu</a>
-  <form action="/cart/" method="POST">
+  <form action="/checkout/" method="POST" style="display: inline;">
     {% csrf_token %}
     <input hidden type="text" name="product" value='{{food.id}}'>
-    <input type="submit" value="Checkout">
+    <!-- <input type="submit" value="Checkout"> -->
+    <button style=" background-color: #4CAF50; color: white;  width: 100px; height: 38px; border: none; padding-right: 10px;">Checkout</button>
+
 </form>
   
 </body>

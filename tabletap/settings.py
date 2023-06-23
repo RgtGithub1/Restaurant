@@ -74,23 +74,23 @@ WSGI_APPLICATION = 'tabletap.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'restaurant',
-        'USER': 'restaurant',
-        'PASSWORD': 'restaurant',
-
-    }
-}
-
 # DATABASES = {
 #     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': 'TableTab.db', # This is where you put the name of the db file. 
-#                  # If one doesn't exist, it will be created at migration time.
+#         'ENGINE': 'django.db.backends.postgresql',
+#         'NAME': 'restaurant',
+#         'USER': 'restaurant',
+#         'PASSWORD': 'restaurant',
+
 #     }
 # }
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': 'TableTab.db', # This is where you put the name of the db file. 
+                 # If one doesn't exist, it will be created at migration time.
+    }
+}
 
 
 # Password validation
