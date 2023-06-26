@@ -1,12 +1,13 @@
 from django.shortcuts import render, get_object_or_404, redirect
-from .models import Menu, FoodItem
+from .models import Menu, FoodItem, UserDetails
+from django.contrib.auth.forms import UserCreationForm
 
 def menu_list(request):
-    if not request.session.get('cart'):
-        request.session['cart'] = {}
+    # if not request.session.get('cart'):
+    #     request.session['cart'] = {}
     
-    if not request.session.get('wish_list'):
-        request.session['wish_list'] = {}
+    # if not request.session.get('wish_list'):
+    #     request.session['wish_list'] = {}
     categories = Menu.objects.all()
 
     cart = request.session.get('cart')
@@ -27,9 +28,6 @@ def food_items_details(request, id, menu_slug):
         remove = request.POST.get('remove')
         quantity = request.POST.get('quantity')
         food_wish_list = request.POST.get('food_wish_list')
-        # print('food_wish_list is @@@@@', type(food_wish_list), food_wish_list)
-        'hello'
-
 
         if food_wish_list != 'this is wish':
             if cart:
@@ -115,3 +113,44 @@ def checkout(request):
         cart.clear()
     request.session['cart'] = cart
     return render(request, 'checkout.html')
+
+# def signup(request):
+#     # form = UserCreationForm()
+
+#     return render(request, 'signup.html')
+
+def signup(request):
+    print('entering into signup page without post method')
+    if request.method == 'POST':
+        print('entering into signup page')
+        first_name = request.POST.get('first_name')
+        last_name = request.POST.get('last_name')
+        contact_number = request.POST.get('contact_number')
+        print('first_name:',first_name)
+        print('last_name:',last_name)
+        print('contact_number:',contact_number)
+        
+
+        signup = UserDetails()
+        signup.first_name = first_name
+        signup.last_name = last_name
+        signup.contact_number = contact_number
+        signup.save()
+        print('failed to insert')
+
+        if not request.session.get('cart'):
+            request.session['cart'] = {}
+        
+        if not request.session.get('wish_list'):
+            request.session['wish_list'] = {}
+        categories = Menu.objects.all()
+
+        cart = request.session.get('cart')
+        keys = [int(key) for key in cart.keys()]
+        list_quantity = FoodItem.objects.filter(id__in=keys)
+        return render(request, 
+                    'main_menu.html', 
+                    {'categories': categories,
+                    'list_quantity':list_quantity})
+    
+    return render(request, 'signup.html')

@@ -138,7 +138,7 @@
     </tfoot>
   </table>
   
-  <a href="/" class="btn">Continue Menu</a>
+  <a href="{% url 'menu:menu_list' %}" class="btn">Continue Menu</a>
   <form action="/checkout/" method="POST" style="display: inline;">
     {% csrf_token %}
     <input hidden type="text" name="product" value='{{food.id}}'>

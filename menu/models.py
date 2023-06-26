@@ -54,15 +54,16 @@ class FoodItem(models.Model):
 
     def __str__(self):
         return self.name
+    
+# Table created to store user details along with food details
 
-    # def get_absolute_url(self):
-    #     return reverse('menu:food_list_by_category',
-    #                     args=[self.slug])
-
-# class cart(models.Model):
-#     food_name = models.ForeignKey(FoodItem,
-#                                  related_name='food_cart',
-#                                  on_delete=models.CASCADE)
-#     quantity = models.IntegerField()
-
-
+class UserDetails(models.Model):
+    first_name = models.CharField(max_length=50)
+    last_name = models.CharField(max_length=50)
+    contact_number = models.IntegerField()
+    table_number = models.IntegerField(default=None, blank=True, null=True)
+    food_details = models.CharField(max_length=500, default=None, blank=True, null=True)
+    total_price = models.DecimalField(max_digits=10,
+                                decimal_places=2, default=None, blank=True, null=True)
+    created = models.DateTimeField(auto_now_add=True)
+    updated = models.DateTimeField(auto_now=True)
