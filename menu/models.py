@@ -58,12 +58,12 @@ class FoodItem(models.Model):
 # Table created to store user details along with food details
 
 class UserDetails(models.Model):
-    first_name = models.CharField(max_length=50)
-    last_name = models.CharField(max_length=50)
-    contact_number = models.IntegerField()
+    user_email = models.CharField(max_length=100, default=None, blank=True, null=True)
+    contact_number = models.CharField(max_length=10, default=None, blank=True, null=True)
     table_number = models.IntegerField(default=None, blank=True, null=True)
     food_details = models.CharField(max_length=500, default=None, blank=True, null=True)
     total_price = models.DecimalField(max_digits=10,
                                 decimal_places=2, default=None, blank=True, null=True)
-    created = models.DateTimeField(auto_now_add=True)
+    order_status = models.CharField(max_length=100, default=None, blank=True, null=True)
+    created = models.DateTimeField()
     updated = models.DateTimeField(auto_now=True)

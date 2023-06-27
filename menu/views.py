@@ -1,15 +1,14 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from .models import Menu, FoodItem, UserDetails
 from django.contrib.auth.forms import UserCreationForm
+import re
+from django.contrib import messages
+import datetime
+from django.db.models import Q
+from .update import cart_quantity
 
 def menu_list(request):
-    # if not request.session.get('cart'):
-    #     request.session['cart'] = {}
-    
-    # if not request.session.get('wish_list'):
-    #     request.session['wish_list'] = {}
     categories = Menu.objects.all()
-
     cart = request.session.get('cart')
     keys = [int(key) for key in cart.keys()]
     list_quantity = FoodItem.objects.filter(id__in=keys)
@@ -19,7 +18,6 @@ def menu_list(request):
                    'list_quantity':list_quantity})
 
 def food_items_details(request, id, menu_slug):
-    print('entering into food_items_details')
     category = get_object_or_404(Menu, id=id)
     if request.method == 'POST':
         cart = request.session.get('cart')
@@ -34,22 +32,18 @@ def food_items_details(request, id, menu_slug):
                 quantity = cart.get(product)
                 if quantity:
                     if remove:
-                        print('entering into remove condition')
                         if quantity <=1:
                             cart.pop(product)
                         else:
                             cart[product] = quantity-1
                     else:
-                        print('entering into increase condition')
                         cart[product] = quantity+1
                 else:
                     cart[product] = 1
             else:
-                print('entering into else part')
                 cart = {}
                 cart[product] = 1
         else:
-            print('entering into else part of wish_list')
             wish_list[product] = 1
 
         request.session['cart'] = cart
@@ -109,48 +103,85 @@ def wishlist(request):
 
 def checkout(request):
     cart = request.session.get('cart')
+    coustmer_details = request.session.get('coustmer_details')
+    print(coustmer_details,':coustmer_details is')
+    # update = UserDetails.objects.filter(Q(contact_number = coustmer_details['contact_number']) & Q(created = coustmer_details['date']))
+    # print('update is:' , update)
+    # update.user_email = user_email
+    # update.contact_number = contact_number
+    # update.created = format_date_time
+    # update.save()
+
     if request.method == 'POST':
+        cart = request.session.get('cart')
+        keys = [int(key) for key in cart.keys()]
+        food_details_list = FoodItem.objects.filter(id__in=keys)
+        Total_price = cart_quantity(food_details_list, cart)
+        update_row = UserDetails.objects.filter(Q(contact_number = coustmer_details['contact_number']) & Q(created = coustmer_details['date']))
+        update_row.update(food_details=cart, table_number=1, order_status='in-pro', total_price=Total_price)
+        # update_row.food_details = cart
+        # update_row.table_number = 'T1'
+        # update_row.order_status = 'in-pro'
+        # update_row.total_price = Total_price
+        # update_row.save()
         cart.clear()
     request.session['cart'] = cart
     return render(request, 'checkout.html')
 
-# def signup(request):
-#     # form = UserCreationForm()
-
-#     return render(request, 'signup.html')
-
 def signup(request):
-    print('entering into signup page without post method')
+    def validate_gmail_data(gmail_value):
+        gmail_pattern = r'\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.com\b'
+        if re.fullmatch(gmail_pattern, gmail_value) is None:
+            return False
+        return True
+
+    def validate_contact_data(contact_value):
+        contact_pattern = r'\b[0-9]+\b'
+        if len(contact_value) == 10:
+            if re.fullmatch(contact_pattern, contact_value) is None:
+                return False
+            else:
+                if contact_value[0] in ['6','7','8','9']:
+                    return True
+                return False
+        return False
+        
     if request.method == 'POST':
-        print('entering into signup page')
-        first_name = request.POST.get('first_name')
-        last_name = request.POST.get('last_name')
+        user_email = request.POST.get('user_email')
         contact_number = request.POST.get('contact_number')
-        print('first_name:',first_name)
-        print('last_name:',last_name)
-        print('contact_number:',contact_number)
-        
+        if validate_contact_data(contact_number) and validate_gmail_data(user_email):
+            current_date = datetime.datetime.now()
+            format_date_time = current_date.strftime("%Y-%m-%d %H:%M:%S")
+            signup = UserDetails()
+            signup.user_email = user_email
+            signup.contact_number = contact_number
+            signup.created = format_date_time
+            signup.save()
 
-        signup = UserDetails()
-        signup.first_name = first_name
-        signup.last_name = last_name
-        signup.contact_number = contact_number
-        signup.save()
-        print('failed to insert')
+            if not request.session.get('cart'):
+                request.session['cart'] = {}
 
-        if not request.session.get('cart'):
-            request.session['cart'] = {}
-        
-        if not request.session.get('wish_list'):
-            request.session['wish_list'] = {}
-        categories = Menu.objects.all()
+            if not request.session.get('wish_list'):
+                request.session['wish_list'] = {}
+            
+            if not request.session.get('coustmer_details'):
+                request.session['coustmer_details'] = {}
 
-        cart = request.session.get('cart')
-        keys = [int(key) for key in cart.keys()]
-        list_quantity = FoodItem.objects.filter(id__in=keys)
-        return render(request, 
-                    'main_menu.html', 
-                    {'categories': categories,
-                    'list_quantity':list_quantity})
-    
+            categories = Menu.objects.all()
+
+            cart = request.session.get('cart')
+            keys = [int(key) for key in cart.keys()]
+            list_quantity = FoodItem.objects.filter(id__in=keys)
+            coustmer_details = request.session.get('coustmer_details')
+            coustmer_details['contact_number'] = contact_number
+            coustmer_details['date'] = format_date_time
+            request.session['coustmer_details'] = coustmer_details
+
+            return render(request, 
+                        'main_menu.html', 
+                        {'categories': categories,
+                        'list_quantity':list_quantity})
+        else:
+            messages.success(request, 'Please enter valid email or contact number')
+            return render(request, 'signup.html')
     return render(request, 'signup.html')
