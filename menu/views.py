@@ -184,6 +184,7 @@ def signup(request):
                         {'categories': categories,
                         'list_quantity':list_quantity})
         else:
-            messages.success(request, 'Please enter valid email or contact number')
+            messages.error(request, 'Please enter valid email or contact number')
             return render(request, 'signup.html')
-    return render(request, 'signup.html')
+    else:
+        return render(request, 'signup.html')
