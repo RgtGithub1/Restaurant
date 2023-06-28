@@ -151,8 +151,7 @@ def signup(request):
         user_email = request.POST.get('user_email')
         contact_number = request.POST.get('contact_number')
         if validate_contact_data(contact_number) and validate_gmail_data(user_email):
-            india_tz = pytz.timezone('Asia/Kolkata')
-            current_date = datetime.datetime.now(india_tz)
+            current_date = datetime.datetime.now()
             format_date_time = current_date.strftime("%Y-%m-%d %H:%M:%S")
             signup = UserDetails()
             signup.user_email = user_email
