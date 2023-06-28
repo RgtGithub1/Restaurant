@@ -6,6 +6,7 @@ from django.contrib import messages
 import datetime
 from django.db.models import Q
 from .update import cart_quantity
+import pytz
 
 def menu_list(request):
     categories = Menu.objects.all()
@@ -150,7 +151,8 @@ def signup(request):
         user_email = request.POST.get('user_email')
         contact_number = request.POST.get('contact_number')
         if validate_contact_data(contact_number) and validate_gmail_data(user_email):
-            current_date = datetime.datetime.now()
+            indian_tz = pytz.timezone('Asia/Kolkata')
+            current_date = datetime.datetime.now(indian_tz)
             format_date_time = current_date.strftime("%Y-%m-%d %H:%M:%S")
             signup = UserDetails()
             signup.user_email = user_email
