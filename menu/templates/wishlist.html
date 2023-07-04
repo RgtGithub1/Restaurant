@@ -108,7 +108,7 @@
 
       <form action="/wishlist/" method="POST">
         {% csrf_token %}
-        <input hidden type="text" name="product" value='{{food.id}}'>
+        <input hidden type="text" name="product" value='{{food.id}}-{{food.name}}'>
         <input type="submit" value="Add to Cart">
       </form>
 

@@ -12,9 +12,6 @@ class Menu(models.Model):
     '''
     class Meta:
         ordering = ['name']
-        # indexes = [
-        #     models.Index(fields=['name'])
-        # ]
 
     def __str__(self):
         return self.name
@@ -39,18 +36,8 @@ class FoodItem(models.Model):
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
 
-    # class Meta:
-    #     ordering = ['name']
-    #     indexes = [
-    #         models.Index(fields=['id', 'slug']),
-    #         models.Index(fields=['name']),
-    #         models.Index(fields=['-created']),
-    #     ]
     class Meta:
         ordering = ['name']
-        # indexes = [
-        #     models.Index(fields=['name']),
-        # ]
 
     def __str__(self):
         return self.name
@@ -64,6 +51,7 @@ class UserDetails(models.Model):
     food_details = models.CharField(max_length=500, default=None, blank=True, null=True)
     total_price = models.DecimalField(max_digits=10,
                                 decimal_places=2, default=None, blank=True, null=True)
-    order_status = models.CharField(max_length=100, default=None, blank=True, null=True)
+    food_status = models.CharField(max_length=100, default=None, blank=True, null=True)
+    serv_status = models.CharField(max_length=100, default=None, blank=True, null=True)
     created = models.DateTimeField()
-    updated = models.DateTimeField(auto_now=True)
+    updated = models.DateTimeField()

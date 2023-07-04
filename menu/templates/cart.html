@@ -101,38 +101,33 @@
 
           <form id='form1' action="/cart/" method="POST" style="display: inline;">
             {% csrf_token %}
-            <input hidden type="text" name="product" value='{{food.id}}'>
+            <input hidden type="text" name="product" value='{{food.id}}-{{food.name}}'>
             <input hidden type="number" name="remove" value='-1'>
-            <!-- <input type="submit" value="-"> -->
             <button style="width: auto; background-color: red; color: white;">-</button>
         </form>
 
 
-        {{food|cart_quantity:request.session.cart}}
+        {{food|food_quantity:request.session.cart}}
 
         <form action="/cart/" method="POST" style="display: inline;">
             {% csrf_token %}
-            <input hidden type="text" name="product" value='{{food.id}}'>
-            <!-- <input type="submit" value="+"> -->
+            <input hidden type="text" name="product" value='{{food.id}}-{{food.name}}'>
             <button style="width: auto; background-color: green; color: white;">+</button>
         </form>
 
         </td>
         <td>
-          ₹{{food|quantity_price:request.session.cart}}
+          ₹{{food|food_quantity_price:request.session.cart}}
         </td>
       </tr>
       {% endfor %}
       
   
-
-
-
     <tfoot>
       <tr>
         <td colspan="2"><strong>Total:</strong></td>
-        <td>{{food_details_list|total_quantity:request.session.cart}}</td>
-        <td>₹{{food_details_list|total_price:request.session.cart}}</td>
+        <td>{{food_details_list|cart_total_quantity:request.session.cart}}</td>
+        <td>₹{{food_details_list|cart_total_price:request.session.cart}}</td>
         
       </tr>
     </tfoot>

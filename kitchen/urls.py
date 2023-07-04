@@ -3,7 +3,7 @@ from . import views
 # from .middlewares.auth import auth_middleware
 
 
-
+app_name = 'kitchen'
 urlpatterns = [
-    path('', views.signup, name='signup'),
+    path('', views.kitchen_home_page, name='kitchen_home_page'),
     ]

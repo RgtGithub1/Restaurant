@@ -1,0 +1,101 @@
+{% load cart %}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Kitchen Page</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-repeat: no-repeat;
+            background-size: cover;
+            background-color: #66a8ba;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 30px;
+            /* color: #ffffff; */
+            color: black;
+        }
+
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin-bottom: 40px;
+            background-color: #ffffff;
+        }
+
+        table th, table td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+fimage.jpg
+        table th {
+            background-color: #f2f2f2;
+        }
+
+        .table1, .table2, .table3 {
+            margin-bottom: 60px;
+        }
+
+        .order-complete-btn {
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .order-complete-btn:hover {
+            background-color: #45a049;
+        }
+     td {
+        padding: 10px;
+        text-align: left;
+        border-bottom: 1px solid hsl(0, 79%, 44%);
+         }
+    </style>
+</head>
+<body>
+    <h1>Kitchen Page</h1>    
+    {% for order in order_details_id %}
+    <div>
+        <h2>Table Number: {{order.table_number}}</h2>
+        <h2>Order ID: {{order.id}}</h2>
+        <table class="table1">
+            <thead>
+                <tr>
+                    <th>Food Name</th>
+                    <th>Quantity</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    {% for food in order.food_details|kitchen_order_details %}
+                    <tr>
+                        <td>{{food.name}}</td>
+                        <td>{{food|food_quantity:order.food_details}}</td>
+                    </tr>
+                    {% endfor %}
+                </tr>
+            </tbody>
+        </table>
+
+        <form action="/kitchen/" method="POST">
+            {% csrf_token %}
+            <input hidden type="text" name="product" value='{{order.id}}'>
+            <button class="order-complete-btn">DONE</button>
+        </form>
+        
+    </div>
+    <hr>
+
+    {% endfor %}
+
+</body>
+</html>
