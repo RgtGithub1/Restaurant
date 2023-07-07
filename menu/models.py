@@ -41,17 +41,34 @@ class FoodItem(models.Model):
 
     def __str__(self):
         return self.name
-    
 # Table created to store user details along with food details
 
+
 class UserDetails(models.Model):
-    user_email = models.CharField(max_length=100, default=None, blank=True, null=True)
-    contact_number = models.CharField(max_length=10, default=None, blank=True, null=True)
+    user_email = models.CharField(max_length=100,
+                                  default=None,
+                                  blank=True, null=True)
+    contact_number = models.CharField(max_length=10,
+                                      default=None,
+                                      blank=True,
+                                      null=True)
     table_number = models.IntegerField(default=None, blank=True, null=True)
-    food_details = models.CharField(max_length=500, default=None, blank=True, null=True)
+    food_details = models.CharField(max_length=500,
+                                    default=None,
+                                    blank=True,
+                                    null=True)
     total_price = models.DecimalField(max_digits=10,
-                                decimal_places=2, default=None, blank=True, null=True)
-    food_status = models.CharField(max_length=100, default=None, blank=True, null=True)
-    serv_status = models.CharField(max_length=100, default=None, blank=True, null=True)
+                                      decimal_places=2,
+                                      default=None,
+                                      blank=True,
+                                      null=True)
+    food_status = models.CharField(max_length=100,
+                                   default=None,
+                                   blank=True,
+                                   null=True)
+    serv_status = models.CharField(max_length=100,
+                                   default=None,
+                                   blank=True,
+                                   null=True)
     created = models.DateTimeField()
     updated = models.DateTimeField()

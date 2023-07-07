@@ -19,5 +19,8 @@ class FoodItemAdmin(admin.ModelAdmin):
 
 @admin.register(UserDetails)
 class UserDetails(admin.ModelAdmin):
-    list_display = ['id','contact_number','table_number','food_details','total_price']
-
+    list_display = ['id',
+                    'contact_number',
+                    'table_number',
+                    'food_details',
+                    'total_price']

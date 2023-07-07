@@ -12,9 +12,20 @@ import os
 
 
 def signup(request):
+    """
+    Args:
+        email (string): Enter email.
+        contact number (string): Enter contact number.
+
+    Returns:
+        if enter email and contact number valid:
+            it will render to menu page
+        else:
+            reverse to signup page.
+    """
+
     # del request.session['admin_food_view']
     # request.session.save()
-
     # fect_path=os.path.normpath(os.getcwd() + os.sep + os.pardir)
     fect_path = os.path.normpath(os.getcwd())
 
@@ -41,21 +52,28 @@ def signup(request):
         logging.info("coustmer_details session created")
 
     def validate_gmail_data(gmail_value):
-        gmail_pattern = r'\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.com\b'
-        if re.fullmatch(gmail_pattern, gmail_value) is None:
-            return False
-        return True
+
+        try:
+            gmail_pattern = r'\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.com\b'
+            if re.fullmatch(gmail_pattern, gmail_value) is None:
+                return False
+            return True
+        except Exception as e:
+            logging.error(f"{e}")
 
     def validate_contact_data(contact_value):
-        contact_pattern = r'\b[0-9]+\b'
-        if len(contact_value) == 10:
-            if re.fullmatch(contact_pattern, contact_value) is None:
-                return False
-            else:
-                if contact_value[0] in ['6', '7', '8', '9']:
-                    return True
-                return False
-        return False
+        try:
+            contact_pattern = r'\b[0-9]+\b'
+            if len(contact_value) == 10:
+                if re.fullmatch(contact_pattern, contact_value) is None:
+                    return False
+                else:
+                    if contact_value[0] in ['6', '7', '8', '9']:
+                        return True
+                    return False
+            return False
+        except Exception as e:
+            logging.error(f"{e}")
     if request.method == 'POST':
         user_email = request.POST.get('user_email')
         contact_number = request.POST.get('contact_number')
@@ -93,6 +111,11 @@ def signup(request):
 
 
 def menu_list(request):
+    """
+    This method display list of all food category on menu page
+    and based on your select category, it will go category details page.
+
+    """
     categories = Menu.objects.all()
     cart = request.session.get('cart')
     logging.info("Back to Menu page")
@@ -105,6 +128,17 @@ def menu_list(request):
 
 
 def food_items_details(request, id, menu_slug):
+    """
+    This method display selected category food details on menu page
+
+    cart: if you click on cart button food will store in cart session
+        if you click on + button, selected food quantity increase by 1 in cart
+        if you click on - button, selected food quantity decrease by 1 in cart
+
+    wishlist: if you click on wishlist button
+                food will store in wishlist session.
+
+    """
     category = get_object_or_404(Menu, id=id)
     logging.info(f"Selected {menu_slug}")
     if request.method == 'POST':
@@ -159,6 +193,13 @@ def food_items_details(request, id, menu_slug):
 
 
 def cart(request):
+    """
+    This method display all food details which are store in cart.
+
+    if you click on + button, selected food quantity increase by 1 in cart
+    if you click on - button, selected food quantity decrease by 1 in cart
+
+    """
     logging.info("Cart page fetched")
     cart = request.session.get('cart')
 
@@ -195,6 +236,13 @@ def cart(request):
 
 
 def wishlist(request):
+    """
+    This method display all food details which are store in wishlist.
+
+    if you click on add to cart button:
+        selected food will store in cart and default quantity as 1
+
+    """
     logging.info("wishlist page fetched")
     wish_list = request.session.get('wish_list')
     cart = request.session.get('cart')
@@ -218,6 +266,14 @@ def wishlist(request):
 
 
 def checkout(request):
+    """
+    This method display food status to user.
+
+    if food status in DB is pending:
+        status is food is preparing
+    else:
+        food is ready
+    """
     logging.info("Checkout page fetched")
     cart = request.session.get('cart')
     coustmer_details = request.session.get('coustmer_details')
