@@ -86,7 +86,7 @@ fimage.jpg
             </tbody>
         </table>
 
-        <form action="/kitchen/" method="POST">
+        <form method="POST">
             {% csrf_token %}
             <input hidden type="text" name="product" value='{{order.id}}'>
             <button class="order-complete-btn">DONE</button>

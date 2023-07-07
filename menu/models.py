@@ -18,7 +18,7 @@ class Menu(models.Model):
 
     def get_absolute_url(self):
         return reverse('menu:food_list_by_category',
-                       args=[self.id, self.slug])
+                       kwargs={'id': self.id, 'menu_slug': self.slug})
 
 
 class FoodItem(models.Model):

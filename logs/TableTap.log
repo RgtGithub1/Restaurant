@@ -1,0 +1,33 @@
+views.py:29 - 2023-07-07 14:51:08,853 - INFO -                        Running                   
+views.py:29 - 2023-07-07 14:51:50,789 - INFO -                        Running                   
+views.py:79 - 2023-07-07 14:51:50,857 - INFO - After sginup render to Menu page
+views.py:109 - 2023-07-07 14:51:55,750 - INFO - Selected soft-drinks
+views.py:109 - 2023-07-07 14:51:57,336 - INFO - Selected soft-drinks
+views.py:139 - 2023-07-07 14:51:57,337 - INFO - 6 added to wishlist
+views.py:109 - 2023-07-07 14:51:57,351 - INFO - Selected soft-drinks
+views.py:198 - 2023-07-07 14:52:07,788 - INFO - wishlist page fetched
+views.py:198 - 2023-07-07 14:52:18,412 - INFO - wishlist page fetched
+views.py:206 - 2023-07-07 14:52:18,415 - INFO - Thums Up added to cart from wishlist
+views.py:98 - 2023-07-07 14:52:32,450 - INFO - Back to Menu page
+views.py:198 - 2023-07-07 14:52:34,791 - INFO - wishlist page fetched
+views.py:198 - 2023-07-07 14:52:36,495 - INFO - wishlist page fetched
+views.py:206 - 2023-07-07 14:52:36,498 - INFO - Chicken added to cart from wishlist
+views.py:98 - 2023-07-07 14:52:50,205 - INFO - Back to Menu page
+views.py:162 - 2023-07-07 14:52:58,236 - INFO - Cart page fetched
+views.py:162 - 2023-07-07 14:53:06,242 - INFO - Cart page fetched
+views.py:182 - 2023-07-07 14:53:06,244 - INFO - Vanilla increased one quantity in cart
+views.py:162 - 2023-07-07 14:53:06,255 - INFO - Cart page fetched
+views.py:221 - 2023-07-07 14:53:22,831 - INFO - Checkout page fetched
+__init__.py:56 - 2023-07-07 14:53:22,951 - INFO - -- BEGIN Twilio API Request --
+__init__.py:66 - 2023-07-07 14:53:22,952 - INFO - POST Request: https://api.twilio.com/2010-04-01/Accounts/AC2cc24cbcb59391796c0570fc0a59b811/Messages.json
+__init__.py:69 - 2023-07-07 14:53:22,952 - INFO - Headers:
+__init__.py:73 - 2023-07-07 14:53:22,952 - INFO - User-Agent : twilio-python/8.4.0 (Windows AMD64) Python/3.11.3
+__init__.py:73 - 2023-07-07 14:53:22,952 - INFO - X-Twilio-Client : python-8.4.0
+__init__.py:73 - 2023-07-07 14:53:22,952 - INFO - Accept-Charset : utf-8
+__init__.py:73 - 2023-07-07 14:53:22,952 - INFO - Content-Type : application/x-www-form-urlencoded
+__init__.py:73 - 2023-07-07 14:53:22,952 - INFO - Accept : application/json
+__init__.py:75 - 2023-07-07 14:53:22,952 - INFO - -- END Twilio API Request --
+__init__.py:81 - 2023-07-07 14:53:24,162 - INFO - Response Status Code: 400
+__init__.py:82 - 2023-07-07 14:53:24,162 - INFO - Response Headers: {'Date': 'Fri, 07 Jul 2023 09:23:23 GMT', 'Content-Type': 'application/json; charset=utf-8', 'Content-Length': '218', 'Connection': 'keep-alive', 'Twilio-Request-Id': 'RQ6594e3fe913ed44b83d7edf0c40f062d', 'Twilio-Request-Duration': '0.074', 'Access-Control-Allow-Origin': '*', 'Access-Control-Allow-Headers': 'Accept, Authorization, Content-Type, If-Match, If-Modified-Since, If-None-Match, If-Unmodified-Since, Idempotency-Key', 'Access-Control-Allow-Methods': 'GET, POST, DELETE, OPTIONS', 'Access-Control-Expose-Headers': 'ETag', 'Access-Control-Allow-Credentials': 'true', 'X-Powered-By': 'AT-5000', 'Strict-Transport-Security': 'max-age=31536000', 'Twilio-Concurrent-Requests': '1', 'X-Shenanigans': 'none', 'X-Home-Region': 'us1', 'X-API-Domain': 'api.twilio.com'}
+views.py:258 - 2023-07-07 14:53:24,163 - INFO - order placed
+views.py:221 - 2023-07-07 14:53:24,169 - INFO - Checkout page fetched
