@@ -5,10 +5,10 @@ import re
 from django.contrib import messages
 from django.db.models import Q
 from .update import cart_quantity, fetch_date_time
-from twilio.rest import Client
-from twilio.base.exceptions import TwilioRestException
 import logging
 import os
+# import requests as r
+# import json
 
 
 def signup(request):
@@ -24,30 +24,29 @@ def signup(request):
             reverse to signup page.
     """
 
-    # del request.session['admin_food_view']
+    # To delete any session refer below syntax
+    # del request.session['session_name']
     # request.session.save()
-    # fect_path=os.path.normpath(os.getcwd() + os.sep + os.pardir)
-    fect_path = os.path.normpath(os.getcwd())
 
-    print('path is:', fect_path)
-    fetched_path = f"{fect_path}\\logs\\TableTap.log"
+    fect_path = os.path.normpath(os.getcwd())
+    log_path = f"{fect_path}\\logs\\TableTap.log"
     logging.basicConfig(
-        filename=fetched_path,
+        filename=log_path,
         level=logging.INFO,
         format='%(filename)s:%(lineno)d - '
                '%(asctime)s - %(levelname)s - %(message)s')
 
-    logging.info("                       Running                   ")
+    logging.info("Signup page")
 
-    if not request.session.get('cart'):
+    if 'cart' not in request.session:
         request.session['cart'] = {}
         logging.info("cart session created")
 
-    if not request.session.get('wish_list'):
+    if 'wish_list' not in request.session:
         request.session['wish_list'] = {}
         logging.info("Wish_list session created")
 
-    if not request.session.get('coustmer_details'):
+    if 'coustmer_details' not in request.session:
         request.session['coustmer_details'] = {}
         logging.info("coustmer_details session created")
 
@@ -104,7 +103,7 @@ def signup(request):
                            'Please enter valid email or contact number')
             logging.error("Please enter valid email or contact number")
             return redirect(reverse('menu:signup'))
-            # return render(request, 'signup.html')
+
     else:
         return render(request, 'signup.html')
         # return redirect(reverse('menu:signup'))
@@ -292,27 +291,40 @@ def checkout(request):
                           total_price=Total_price,
                           serv_status='Pending',
                           updated=india_time)
-
-        account_sid = 'AC2cc24cbcb59391796c0570fc0a59b811'
-        auth_token = '5acbf7d82952089d7a66114620f3daad'
-
-        try:
-            client = Client(account_sid, auth_token)
-            message = client.messages.create(
-                body='Good Luck',  # Content of the SMS
-                from_='+916361487600',  # Your Twilio phone number
-                to='+917975759756',  # Recipient's phone number
-            )
-            print('message sent via sms')
-            logging.info("order placed")
-            return redirect(reverse('menu:checkout'))
-        except TwilioRestException as e:
-            error_code = e.code
-            error_message = e.msg
-            print('error_code is', error_code)
-            print('error_message is', error_message)
-            logging.info("order placed")
-            return redirect(reverse('menu:checkout'))
+        logging.info("order placed")
+        return redirect(reverse('menu:checkout'))
+        # try:
+        #     # from sinch account:
+        #     SERVICE_PLAN_ID = "bf296a6b335c47fb9fe4bfcfa9066b33"
+        #     access_token = "60c70ea0e08e48ffaff4a2fd9a9e3eeb"
+        #     from_ = "447520650698"
+        #     message = 'This is demo message! by sinch account'
+        #     to_ = "917975759756"
+        #     headers = {
+        #         "Authorization": f"Bearer {access_token}",
+        #         "Content-Type": "application/json"
+        #     }
+        #     payload = {
+        #         "from": from_,
+        #         "to": [to_],
+        #         "body": message
+        #     }
+        #     response = r.post(
+        #         f'https://sms.api.sinch.com/xms/v1/{SERVICE_PLAN_ID}/batches',
+        #         headers=headers,
+        #         data=json.dumps(payload)
+        #     )
+        #     if response.status_code == 201:
+        #         print('SMS sent successfully to multiple numbers.')
+        #     else:
+        #         print('Failed to send SMS to multiple numbers. Error:',
+        #               response.text)
+        #         print('response code is:', response.status_code)
+        #     logging.info("order placed")
+        #     return redirect(reverse('menu:checkout'))
+        # except Exception as e:
+        #     logging.error(f"{e}")
+        #     return redirect(reverse('menu:checkout'))
     cart.clear()
     request.session['cart'] = cart
 
