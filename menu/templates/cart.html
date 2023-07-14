@@ -1,0 +1,146 @@
+{% load static %}
+
+{% load cart %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TableTap Cart</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 20px;
+      background-color: #66a8ba;
+      background-repeat: no-repeat;
+      background-size: cover;
+    }
+    
+    h1 {
+      text-align: center;
+    }
+    
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 20px;
+    }
+    
+    th, td {
+      padding: 10px;
+      text-align: left;
+      border-bottom: 1px solid #ddd;
+    }
+    
+    th {
+      background-color: #f2f2f2;
+    }
+    
+    .btn {
+      display: inline-block;
+      padding: 10px 20px;
+      background-color: #4CAF50;
+      color: #fff;
+      text-decoration: none;
+      border-radius: 4px;
+      transition: background-color 0.3s;
+    }
+    
+    .btn:hover {
+      background-color: #45a049;
+    }
+    
+    .quantity-container {
+      display: flex;
+      align-items: center;
+    }
+    
+    .quantity {
+      display: inline-block;
+      padding: 5px 10px;
+      background-color: #007bff;
+      color: #fff;
+      text-decoration: none;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+    
+    .quantity:hover {
+      background-color: #0069d9;
+    }
+  </style>
+</head>
+<body>
+  <h1>Cart</h1>
+  
+  <table>
+    <thead>
+      <tr>
+        <th>Product</th>
+        <th>Price</th>
+        <th>Quantity</th>
+        <th>Total</th>
+        <th></th>
+      </tr>
+    </thead>
+    
+    <tbody>
+
+      {% for food in food_details_list %}
+      <tr>
+        <td><img src="{% if food.image %}{{ food.image.url }}{% else %}{% static " img/no_image.png" %}{% endif %}"
+          width="50px" height="50px" border-radus="50%" style="border-radius: 15%">
+        <p>{{food.name}}</p></td>
+        <td>
+          ₹{{food.price}}
+        </td>
+        <td>
+
+          <form id='form1' action="/cart/" method="POST" style="display: inline;">
+            {% csrf_token %}
+            <input hidden type="text" name="product" value='{{food.id}}-{{food.name}}'>
+            <input hidden type="number" name="remove" value='-1'>
+            <button style="width: auto; background-color: red; color: white;">-</button>
+        </form>
+
+
+        {{food|food_quantity:request.session.cart}}
+
+        <form action="/cart/" method="POST" style="display: inline;">
+            {% csrf_token %}
+            <input hidden type="text" name="product" value='{{food.id}}-{{food.name}}'>
+            <button style="width: auto; background-color: green; color: white;">+</button>
+        </form>
+
+        </td>
+        <td>
+          ₹{{food|food_quantity_price:request.session.cart}}
+        </td>
+      </tr>
+      {% endfor %}
+      
+  
+    <tfoot>
+      <tr>
+        <td colspan="2"><strong>Total:</strong></td>
+        <td>{{food_details_list|cart_total_quantity:request.session.cart}}</td>
+        <td>₹{{food_details_list|cart_total_price:request.session.cart}}</td>
+        
+      </tr>
+    </tfoot>
+  </table>
+  
+  <a href="{% url 'menu:menu_list' %}" class="btn">Continue Menu</a>
+  <form action="/checkout/" method="POST" style="display: inline;">
+    {% csrf_token %}
+    <input hidden type="text" name="product" value='{{food.id}}'>
+    <!-- <input type="submit" value="Checkout"> -->
+    <button style=" background-color: #4CAF50; color: white;  width: 100px; height: 38px; border: none; padding-right: 10px;">Checkout</button>
+
+</form>
+  
+</body>
+</html>

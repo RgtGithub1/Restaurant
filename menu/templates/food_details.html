@@ -1,0 +1,59 @@
+{% extends "project_base.html" %}
+{% load static %}
+{% load cart %}
+{% block content %}
+<div id="main" class="col-lg-9 mx-auto">
+    <h1>{{ category }} <a href="{% url 'menu:menu_list' %}"
+            style="text-align: right; float: right; color: black; text-decoration: none;">Menu</a></h1>
+    <div class="row">
+        {% for food in food_details_list %}
+        <div class="col-md-3 mt-4">
+            <a>
+                <img src="{% if food.image %}{{ food.image.url }}{% else %}{% static " img/no_image.png" %}{% endif %}"
+                    width="100%" height="240" border-radus="50%" style="border-radius: 15%">
+            </a><br>
+            <a
+                style="color: black; margin-left: 124px; text-decoration: none;">{{food.name }}</a>
+            <!-- <p style="margin-left: 124px;">{{ food.description }}</p> -->
+            <p style="margin-left: 124px;">₹{{ food.price }}</p>
+
+            <div class="text-center col">
+                {% if food|is_in_cart:request.session.cart %}
+                <div>
+                    <form id='form3' method="POST" style="display: inline;">
+                        {% csrf_token %}
+                        <input hidden type="text" name="product" value='{{food.id}}-{{food.name}}'>
+                        <input hidden type="number" name="remove" value='-1'>
+                        <button style="width: auto; background-color: red; color: white;">-</button>
+                    </form>
+    
+                    {{food|food_quantity:request.session.cart}}
+    
+                    <form id='form4' method="POST" style="display: inline;">
+                        {% csrf_token %}
+                        <input hidden type="text" name="product" value='{{food.id}}-{{food.name}}'>
+                        <button style="width: auto; background-color: #4CAF50; color: white;">+</button>
+                    </form>
+                </div>
+                {% else %}
+                <div>
+                    <form id='form1' method="POST" style="margin-bottom: 20px; display: inline;">
+                        {% csrf_token %}
+                        <input hidden type="text" name="product" value='{{food.id}}-{{food.name}}'>
+                        <button style="width: auto; background-color: black;">&#x1F6D2;</button>
+                    </form>
+
+                    <form id='form2' method="POST" style="display: inline;">
+                        {% csrf_token %}
+                        <input hidden type="text" name="product" value='{{food.id}}'>
+                        <input hidden type="text" name="food_wish_list" value='this is wish'>
+                        <button style="width: auto;">&#x1F496;</button>
+                    </form>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

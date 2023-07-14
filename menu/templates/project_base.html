@@ -1,0 +1,78 @@
+{% load static %}
+{% load cart %}
+<!DOCTYPE html>
+<html>
+ <head>
+ <meta charset="utf-8" />
+ <title>{% block title %}TableTap{% endblock %}</title>
+ <link href="{% static "css/project_base.css" %}" rel="stylesheet">
+ <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+ <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
+  </body>
+  <style>
+    .cart-emoji,
+
+.wishlist-emoji {
+
+    font-size: 20px;
+
+    cursor: pointer;
+
+    position: absolute;
+
+    top: 20px;
+
+    right: 20px;
+
+}
+
+
+.cart-emoji {
+
+    right: 60px;
+
+}
+
+.wishlist-emoji {
+
+    right: 20px;
+
+}
+  </style>
+ </head>
+ <body style="background-color:orange;">
+ <div id="header">
+ <a href="/" class="logo" style="text-decoration: none; margin-left: 143px">TableTap</a>
+
+
+ <!-- <a href="/wishlist/" style=" margin-right: 48px; color: black; text-decoration: none; float: right"><img class="cart_imge" src="/static/images/wishlist.jfif"  width=50px height=50px></a>
+ <a href="/cart/" style=" margin-right: 48px; color: black; text-decoration: none; float: right"><img class="cart_imge" src="/static/images/cart.png"  width=50px height=50px> <span>{{0}}</span></a> -->
+
+<span class="cart-emoji" onclick="window.location.href='/cart'" style="float: right; margin-right: 122px">&#x1F6D2;{{list_quantity|cart_total_quantity:request.session.cart}}</span>
+
+<span class="wishlist-emoji" onclick="window.location.href='/wishlist'" style="float: right; margin-right: 130px">&#x1F496;</span>
+
+ </div>
+ <!-- <div id="subheader">
+ <div class="cart">
+ {% with total_items=cart|length %}
+ {% if total_items > 0 %}
+ <a href="cart.html"><img src="C:/Users/VinodKumar/Desktop/table tap/TableTap/menu/static/cart.png"></a> -->
+ Your cart:
+<a href="{% url "cart:cart_detail" %}">
+{{ total_items }} item{{ total_items|pluralize }},
+${{ cart.get_total_price }}
+</a>
+ {% elif not order %}
+ <a href="cart.html"><img class="cart_imge" src="static/cart.png"  width=50px height=50px></a>
+ <!-- Your cart is empty. -->
+ {% endif %}
+ {% endwith %}
+ </div>
+ </div>
+ <div id="content">
+ {% block content %}
+ {% endblock %}
+ </div>
+ </body>
+</html>

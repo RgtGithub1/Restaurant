@@ -1,0 +1,117 @@
+autoreload.py:266 - 2023-07-10 10:51:38,611 - INFO - C:\Users\NaveenNirnana\Desktop\TableTap_Project\tabletap\menu\views.py changed, reloading.
+views.py:40 - 2023-07-10 10:52:34,418 - INFO - Signup page
+autoreload.py:266 - 2023-07-10 10:53:12,043 - INFO - C:\Users\NaveenNirnana\Desktop\TableTap_Project\tabletap\menu\views.py changed, reloading.
+views.py:43 - 2023-07-10 10:53:35,532 - INFO - Signup page
+views.py:47 - 2023-07-10 10:53:35,532 - INFO - cart session created
+views.py:51 - 2023-07-10 10:53:35,532 - INFO - Wish_list session created
+views.py:55 - 2023-07-10 10:53:35,532 - INFO - coustmer_details session created
+autoreload.py:266 - 2023-07-10 10:53:56,053 - INFO - C:\Users\NaveenNirnana\Desktop\TableTap_Project\tabletap\menu\views.py changed, reloading.
+views.py:40 - 2023-07-10 10:54:19,021 - INFO - Signup page
+views.py:40 - 2023-07-10 10:56:32,296 - INFO - Signup page
+autoreload.py:266 - 2023-07-10 10:57:35,232 - INFO - C:\Users\NaveenNirnana\Desktop\TableTap_Project\tabletap\menu\views.py changed, reloading.
+views.py:40 - 2023-07-10 10:58:45,905 - INFO - Signup page
+views.py:40 - 2023-07-10 10:58:51,417 - INFO - Signup page
+views.py:40 - 2023-07-10 10:58:51,430 - INFO - Signup page
+autoreload.py:266 - 2023-07-10 10:59:25,244 - INFO - C:\Users\NaveenNirnana\Desktop\TableTap_Project\tabletap\menu\views.py changed, reloading.
+views.py:40 - 2023-07-10 11:01:03,370 - INFO - Signup page
+views.py:40 - 2023-07-10 11:01:15,630 - INFO - Signup page
+views.py:204 - 2023-07-10 11:01:31,645 - INFO - Cart page fetched
+views.py:122 - 2023-07-10 11:01:33,751 - INFO - Back to Menu page
+views.py:144 - 2023-07-10 11:02:49,639 - INFO - Selected biryani
+views.py:122 - 2023-07-10 11:02:54,521 - INFO - Back to Menu page
+autoreload.py:266 - 2023-07-10 11:04:20,337 - INFO - C:\Users\NaveenNirnana\Desktop\TableTap_Project\tabletap\menu\views.py changed, reloading.
+views.py:40 - 2023-07-10 11:04:53,474 - INFO - Signup page
+views.py:40 - 2023-07-10 11:04:59,170 - INFO - Signup page
+log.py:241 - 2023-07-10 11:04:59,398 - ERROR - Internal Server Error: /
+Traceback (most recent call last):
+  File "C:\Users\NaveenNirnana\Desktop\TableTap_Project\tabletap_env\Lib\site-packages\django\core\handlers\exception.py", line 56, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\NaveenNirnana\Desktop\TableTap_Project\tabletap_env\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\NaveenNirnana\Desktop\TableTap_Project\tabletap\menu\views.py", line 107, in signup
+    return render(request,
+           ^^^^^^^^^^^^^^^
+  File "C:\Users\NaveenNirnana\Desktop\TableTap_Project\tabletap_env\Lib\site-packages\django\shortcuts.py", line 24, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\NaveenNirnana\Desktop\TableTap_Project\tabletap_env\Lib\site-packages\django\template\loader.py", line 61, in render_to_string
+    template = get_template(template_name, using=using)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\NaveenNirnana\Desktop\TableTap_Project\tabletap_env\Lib\site-packages\django\template\loader.py", line 19, in get_template
+    raise TemplateDoesNotExist(template_name, chain=chain)
+django.template.exceptions.TemplateDoesNotExist: menu:menu_list
+autoreload.py:266 - 2023-07-10 11:13:28,660 - INFO - C:\Users\NaveenNirnana\Desktop\TableTap_Project\tabletap\menu\views.py changed, reloading.
+views.py:40 - 2023-07-10 11:13:47,870 - INFO - Signup page
+views.py:40 - 2023-07-10 11:13:53,485 - INFO - Signup page
+log.py:241 - 2023-07-10 11:13:53,564 - ERROR - Internal Server Error: /
+Traceback (most recent call last):
+  File "C:\Users\NaveenNirnana\Desktop\TableTap_Project\tabletap_env\Lib\site-packages\django\core\handlers\exception.py", line 56, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\NaveenNirnana\Desktop\TableTap_Project\tabletap_env\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\NaveenNirnana\Desktop\TableTap_Project\tabletap\menu\views.py", line 107, in signup
+    return render(request,
+           ^^^^^^^^^^^^^^^
+  File "C:\Users\NaveenNirnana\Desktop\TableTap_Project\tabletap_env\Lib\site-packages\django\shortcuts.py", line 24, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\NaveenNirnana\Desktop\TableTap_Project\tabletap_env\Lib\site-packages\django\template\loader.py", line 61, in render_to_string
+    template = get_template(template_name, using=using)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\NaveenNirnana\Desktop\TableTap_Project\tabletap_env\Lib\site-packages\django\template\loader.py", line 19, in get_template
+    raise TemplateDoesNotExist(template_name, chain=chain)
+django.template.exceptions.TemplateDoesNotExist: {% url 'menu_list' %}
+autoreload.py:266 - 2023-07-10 11:21:06,351 - INFO - C:\Users\NaveenNirnana\Desktop\TableTap_Project\tabletap\menu\views.py changed, reloading.
+views.py:40 - 2023-07-10 14:17:11,728 - INFO - Signup page
+views.py:40 - 2023-07-10 14:17:17,105 - INFO - Signup page
+views.py:97 - 2023-07-10 14:17:19,109 - INFO - After sginup render to Menu page
+views.py:143 - 2023-07-10 14:17:59,250 - INFO - Selected curr
+views.py:143 - 2023-07-10 14:18:00,844 - INFO - Selected curr
+views.py:170 - 2023-07-10 14:18:00,845 - INFO - Chicken added to cart
+views.py:143 - 2023-07-10 14:18:00,857 - INFO - Selected curr
+views.py:143 - 2023-07-10 14:18:02,429 - INFO - Selected curr
+views.py:166 - 2023-07-10 14:18:02,430 - INFO - Chicken increased one quantity in cart
+views.py:143 - 2023-07-10 14:18:02,445 - INFO - Selected curr
+views.py:203 - 2023-07-10 14:18:04,439 - INFO - Cart page fetched
+views.py:203 - 2023-07-10 14:18:06,033 - INFO - Cart page fetched
+views.py:223 - 2023-07-10 14:18:06,035 - INFO - Chicken increased one quantity in cart
+views.py:203 - 2023-07-10 14:18:06,050 - INFO - Cart page fetched
+views.py:203 - 2023-07-10 14:18:07,171 - INFO - Cart page fetched
+views.py:219 - 2023-07-10 14:18:07,174 - INFO - Chicken decreased one quantity from cart
+views.py:203 - 2023-07-10 14:18:07,188 - INFO - Cart page fetched
+views.py:203 - 2023-07-10 14:18:09,034 - INFO - Cart page fetched
+views.py:277 - 2023-07-10 14:18:11,207 - INFO - Checkout page fetched
+views.py:296 - 2023-07-10 14:18:11,218 - INFO - order placed in try block
+views.py:277 - 2023-07-10 14:18:11,223 - INFO - Checkout page fetched
+autoreload.py:266 - 2023-07-10 14:19:44,633 - INFO - C:\Users\NaveenNirnana\Desktop\TableTap_Project\tabletap\menu\views.py changed, reloading.
+views.py:39 - 2023-07-12 10:16:38,520 - INFO - Signup page
+views.py:39 - 2023-07-12 10:16:45,543 - INFO - Signup page
+views.py:104 - 2023-07-12 10:16:45,547 - ERROR - Please enter valid email or contact number
+views.py:39 - 2023-07-12 10:16:45,559 - INFO - Signup page
+views.py:39 - 2023-07-12 10:16:51,249 - INFO - Signup page
+views.py:96 - 2023-07-12 10:16:53,560 - INFO - After sginup render to Menu page
+views.py:142 - 2023-07-12 10:17:04,838 - INFO - Selected break-fast
+views.py:142 - 2023-07-12 10:17:06,301 - INFO - Selected break-fast
+views.py:169 - 2023-07-12 10:17:06,304 - INFO - Idli Vada added to cart
+views.py:142 - 2023-07-12 10:17:06,327 - INFO - Selected break-fast
+views.py:142 - 2023-07-12 10:17:07,890 - INFO - Selected break-fast
+views.py:165 - 2023-07-12 10:17:07,892 - INFO - Idli Vada increased one quantity in cart
+views.py:142 - 2023-07-12 10:17:07,911 - INFO - Selected break-fast
+views.py:142 - 2023-07-12 10:17:09,396 - INFO - Selected break-fast
+views.py:142 - 2023-07-12 10:17:10,252 - INFO - Selected break-fast
+views.py:202 - 2023-07-12 10:17:12,054 - INFO - Cart page fetched
+views.py:202 - 2023-07-12 10:17:14,208 - INFO - Cart page fetched
+views.py:202 - 2023-07-12 10:17:15,086 - INFO - Cart page fetched
+views.py:202 - 2023-07-12 10:17:22,818 - INFO - Cart page fetched
+views.py:276 - 2023-07-12 10:17:23,987 - INFO - Checkout page fetched
+views.py:294 - 2023-07-12 10:17:24,000 - INFO - order placed
+views.py:276 - 2023-07-12 10:17:24,005 - INFO - Checkout page fetched
+views.py:16 - 2023-07-12 10:17:43,591 - INFO - Food prepared
+views.py:276 - 2023-07-12 10:17:53,630 - INFO - Checkout page fetched
+views.py:16 - 2023-07-12 10:18:17,942 - INFO - Food prepared
+views.py:16 - 2023-07-12 10:18:19,463 - INFO - Food prepared
+views.py:16 - 2023-07-12 10:18:21,249 - INFO - Food prepared
